@@ -1,0 +1,30 @@
+function downloadGmailAttachments() {
+  var label = GmailApp.getUserLabelByName("referring items"); // Replace "Attachments" with the name of your label
+  var threads = label.getThreads();
+  
+  var folder = DriveApp.getFolderById("0ALOhdGlUUj5GUk9PVA"); // Replace "YourFolderID" with the ID of your Google Drive folder
+  
+  for (var i = 0; i < threads.length; i++) {
+    var messages = threads[i].getMessages();
+    
+    for (var j = 0; j < messages.length; j++) {
+      var attachments = messages[j].getAttachments({includeInlineImages: false,
+        includeAttachments: true});
+      
+      for (var k = 0; k < attachments.length; k++) {
+        var attachment = attachments[k];
+        var fileName = attachment.getName();
+        var files = folder.getFilesByName(fileName);
+        
+        if (files.hasNext()) {
+          Logger.log(fileName + " already exists in " + folder.getName() + ". Skipping download.");
+        } else {
+          var file = DriveApp.createFile(attachment);
+          folder.addFile(file);
+          DriveApp.getRootFolder().removeFile(file);
+          Logger.log(fileName + " downloaded to " + folder.getName() + ".");
+        }
+      }
+    }
+  }
+}
