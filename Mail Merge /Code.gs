@@ -28,30 +28,9 @@ limitations under the License.
 const RECIPIENT_COL  = "Recipient";
 const EMAIL_SENT_COL = "Email Sent";
 
-
-
-
-
-
-
-
-
-
-
-
 const ATTACHMENT_COL1 = "Attachment ID 1";
 const ATTACHMENT_COL2 = "Attachment ID 2";
 const ATTACHMENT_COL3 = "Attachment ID 3";
-
-
-
-
-
-
-
-
-
-
 
 
 /** 
@@ -119,35 +98,9 @@ function sendEmails(subjectLine, sheet=SpreadsheetApp.getActiveSheet()) {
     if (row[EMAIL_SENT_COL] == ''){
       try {
 
-
     SpreadsheetApp.getActiveSpreadsheet().toast('Attempting to send row:' + (rowIdx+2),'Status');
 
-
-
-
-
-
-
-
-
         const msgObj = fillInTemplateFromObject_(emailTemplate.message, row);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         var filelist = []; //create and array to store files  //get the three files
         filelist[0] = row[ATTACHMENT_COL1];
@@ -173,16 +126,6 @@ function sendEmails(subjectLine, sheet=SpreadsheetApp.getActiveSheet()) {
         //if (row[ATTACHMENT_COL1] != ''){  //old code for single file
        // var attach_file = DriveApp.getFileById(row[ATTACHMENT_COL1]);
       //  }
-
-
-
-
-
-
-
-
-
-
 
         // See https://developers.google.com/apps-script/reference/gmail/gmail-app#sendEmail(String,String,String,Object)
         // If you need to send emails with unicode/emoji characters change GmailApp for MailApp
