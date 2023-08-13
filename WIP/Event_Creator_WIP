@@ -1,0 +1,61 @@
+const TITLE_COL = "Event"
+
+// Creates a menu item within gsheet that runs the function
+function onOpen() {
+    const ui = SpreadsheetApp.getUi();
+    ui.createMenu('Calendar')
+        .addItem('Save', 'convertSheetToCalendarEvents')
+        .addToUi();
+  }
+
+    // Gets the data from the passed sheet
+  const dataRange = sheet.getDataRange();
+
+    // Fetches displayed values for each row in the Range HT Andrew Roberts 
+  const data = dataRange.getDisplayValues();
+
+  // Assumes row 1 contains our column headings
+  const heads = data.shift();   
+  
+  // Gets the index of the column named 'Event Created' (Assumes header names are unique)
+  const eventCreatedColIdx = heads.indexOf(Event_Created_COL);
+
+  // Converts 2d array into an object array
+  const obj = data.map(r => (heads.reduce((o, k, i) => (o[k] = r[i] || '', o), {})));
+
+  // Creates an array to record created event
+  const out = [];
+  
+  // Loops through all the rows of data
+  obj.forEach(function(row, rowIdx){
+
+  // Only sends emails if email_sent cell is blank and not hidden by a filter
+    if (row[Event_Created_COL] == ''){
+      try {
+
+        SpreadsheetApp.getActiveSpreadsheet().toast('Attempting to create event:' + (rowIdx+2),'Status');   
+
+  function convertSheetToCalendarEvents() {
+    // Get the active spreadsheet.
+    var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  
+    CalendarApp.createEvent(title, start, end);
+
+    // Loop through the rows in the sheet.
+    for (var i = 2; i <= sheet.getLastRow(); i++) {
+      // Get the event details from the current row.
+      var title = sheet.getRange(i, 1).getValue();
+      var start = sheet.getRange(i, 2).getValue();
+      var end = sheet.getRange(i, 4).getValue();
+      var description = sheet.getRange(i, 5).getValue();
+   
+      // Create a new calendar event.
+      var event = 
+  
+      // Set the event description.
+      event.setDescription(description);
+  
+      //event.save('c45970f421de7716f7fcd4636ce2d140b6180e50eda347becbeac00819cc85b1@group.calendar.google.com');
+
+    }
+  }
