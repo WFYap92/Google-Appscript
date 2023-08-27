@@ -10,7 +10,7 @@ function convertSheetToCalendarEvents() {
   // Get the active spreadsheet.
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
 
-  // Get the sheet that contains the event details.
+  // Get the sheet named Events that contains the event details.
   var sheet = spreadsheet.getSheetByName("Events");
 
   // Loop through the rows in the sheet.
